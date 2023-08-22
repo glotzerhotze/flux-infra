@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - external-connectivity-check.ns.yaml
+  - external-connectivity-check.dp.yaml
+  - external-connectivity-check.svc.yaml
+namespace: external-connectivity-check
+commonLabels:
+  owner: platform-engineering

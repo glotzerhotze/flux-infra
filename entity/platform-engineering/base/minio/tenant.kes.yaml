@@ -1,0 +1,42 @@
+apiVersion: minio.min.io/v2
+kind: Tenant
+metadata:
+  name: minio
+  namespace: minio
+spec:
+  kes:
+    env:
+    - name: APPROLE_ROLE_ID
+      valueFrom:
+        secretKeyRef:
+          name: minio-kes-credentials
+          key: APPROLE_ROLE_ID
+    - name: APPROLE_SECRET_ID
+      valueFrom:
+        secretKeyRef:
+          name: minio-kes-credentials
+          key: APPROLE_SECRET_ID
+    replicas: 1
+    kesSecret:
+      name: kes-configuration
+    imagePullPolicy: "IfNotPresent"
+    clientCertSecret:
+      name: vault-ca-cert
+      type: Opaque
+    nodeSelector:
+      klessen.cloud/operator-home: "true"
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: v1.min.io/kes
+                  operator: In
+                  values:
+                    - minio-kes
+            topologyKey: kubernetes.io/hostname
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      fsGroup: 1000

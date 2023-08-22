@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/external-connectivity-check
+labels:
+- includeSelectors: true
+  pairs:
+    owner: platform-engineering
+patches:
+- path: patch-AddLoadBalancerConfig.yaml
+  target:
+    kind: Service
+    name: external-connectivity-check
+    version: v1

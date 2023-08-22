@@ -1,0 +1,4 @@
+- op: add
+  path: /spec/certConfig
+  value:
+    dnsNames: ["minio.local.klessen.cloud"]

@@ -1,0 +1,18 @@
+{
+  "hosts": [
+    "cluster.local"
+  ],
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "DE",
+      "L": "GZ",
+      "O": "klessen.cloud",
+      "OU": "vault CA",
+      "ST": "BY"
+    }
+  ]
+}

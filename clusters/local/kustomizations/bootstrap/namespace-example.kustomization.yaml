@@ -1,0 +1,20 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: namespace-example
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  path: ./entity/bootstrap/namespace-example
+  prune: true
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  healthChecks:
+  - apiVersion: rbac.authorization.k8s.io/v1
+    kind: RoleBinding
+    name: example-ns-admin
+    namespace: example

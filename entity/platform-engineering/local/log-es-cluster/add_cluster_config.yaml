@@ -1,0 +1,22 @@
+## This will define the configuration for the ES logging instance
+- op: add
+  path: /spec/nodeSets/0/config/node.attr.data
+  value: cluster
+- op: add
+  path: /spec/nodeSets/0/config/node.data
+  value: true
+- op: add
+  path: /spec/nodeSets/0/config/node.ingest
+  value: true
+- op: add
+  path: /spec/nodeSets/0/config/node.master
+  value: true
+- op: add
+  path: /spec/nodeSets/0/config/path.repo
+  value:
+    - /srv/es-snap-repo
+    - /srv/es-snap-repo-restore
+- op: add
+  path: /spec/nodeSets/0/config/repositories.url.allowed_urls
+  value:
+    - http://elastic-restore.prod.klessen.cloud/*

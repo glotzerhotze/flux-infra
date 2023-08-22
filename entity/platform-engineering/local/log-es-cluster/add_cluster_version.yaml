@@ -1,0 +1,4 @@
+## This will define the version of the cluster for ES pods
+- op: replace
+  path: /spec/version
+  value: 7.10.0

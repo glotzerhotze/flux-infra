@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: rabbitmq-operator
+resources:
+  - rabbitmq.ns.yaml
+commonLabels:
+  owner: platform-engineering
+  app: rabbitmq-cluster-operator
+configurations:
+  - kustomizeconfig.yaml

@@ -1,0 +1,20 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: eck-operator
+  namespace: elastic-system
+spec:
+  interval: 72h
+  releaseName: eck-operator
+  chart:
+    spec:
+      chart: eck-operator
+      version: 'v1.3.0'
+      sourceRef:
+        kind: HelmRepository
+        name: eck-operator
+        namespace: flux-system
+      interval: 5m
+  valuesFrom:
+    - kind: ConfigMap
+      name: values

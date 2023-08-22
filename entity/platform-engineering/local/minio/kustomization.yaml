@@ -1,0 +1,74 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: minio
+resources:
+- ../../base/minio
+- minio-console.svc.yaml
+- minio-api.svc.yaml
+secretGenerator:
+- files:
+  - server-config.yaml
+  name: kes-configuration
+- files:
+  - config.env
+  name: storage-configuration
+configMapGenerator:
+- literals:
+  - graylog.url.gelf=http://graylog.log:12221/gelf
+  - source.facility=minio
+  - log.level=DEBUG
+  name: gelf-sidecar
+generatorOptions:
+  disableNameSuffixHash: true
+labels:
+- includeSelectors: true
+  pairs:
+    owner: platform-engineering
+patches:
+- path: tenantExposeServicesPatch.yaml
+  target:
+    group: minio.min.io
+    kind: Tenant
+    name: storage
+    version: v2
+- path: tenantImagePatch.yaml
+  target:
+    group: minio.min.io
+    kind: Tenant
+    name: storage
+    version: v2
+- path: tenantKesPatch.yaml
+  target:
+    group: minio.min.io
+    kind: Tenant
+    name: storage
+    version: v2
+- path: tenantLogPatch.yaml
+  target:
+    group: minio.min.io
+    kind: Tenant
+    name: storage
+    version: v2
+- path: tenantPoolsPatch.yaml
+  target:
+    group: minio.min.io
+    kind: Tenant
+    name: storage
+    version: v2
+- path: tenantPrometheusPatch.yaml
+  target:
+    group: minio.min.io
+    kind: Tenant
+    name: storage
+    version: v2
+- path: tenantAddCustomDNSPatch.yaml
+  target:
+    group: minio.min.io
+    kind: Tenant
+    name: storage
+    version: v2
+- path: tenantAddLoadBalancerConfigPatch.yaml
+  target:
+    kind: Service
+    name: minio
+    version: v1

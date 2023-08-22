@@ -1,0 +1,48 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: sealed-secrets-backup
+  namespace: kube-system
+  labels:
+    job: sealed-secrets-backup
+spec:
+  schedule: "0 7 18 * *"
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  jobTemplate:
+    metadata:
+      labels:
+        job: sealed-secrets-backup
+    spec:
+      template:
+        metadata:
+          labels:
+            job: sealed-secrets-backup
+        spec:
+          serviceAccountName: sealed-secrets-reader
+          containers:
+            - name: sealed-secrets-backup
+              image: amazon/aws-cli:2.11.20
+              command:
+                - /bin/bash
+                - -c
+                - |
+                  yum install -y python3-pip
+                  pip3 install kubernetes --use-feature=2020-resolver
+                  pip3 install aws-secretsmanager-caching
+                  python3 /scripts/script.py
+              volumeMounts:
+                - name: sealed-secrets-backup-script
+                  mountPath: "/scripts"
+                  readOnly: False
+                - name: logs
+                  mountPath: "/var/log"
+          restartPolicy: Never
+          volumes:
+            - name: sealed-secrets-backup-script
+              configMap:
+                name: sealed-secrets-backup-script
+                defaultMode: 0777
+            - name: logs
+              emptyDir: {}

@@ -1,0 +1,24 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: minio-operator
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  path: ./entity/platform-engineering/local/minio-operator
+  prune: true
+  timeout: 10m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  healthChecks:
+  - apiVersion: apps/v1
+    kind: Deployment
+    name: console
+    namespace: minio-operator
+  - apiVersion: apps/v1
+    kind: Deployment
+    name: minio-operator
+    namespace: minio-operator

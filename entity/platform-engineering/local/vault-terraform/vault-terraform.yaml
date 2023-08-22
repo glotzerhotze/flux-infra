@@ -1,0 +1,24 @@
+---
+apiVersion: infra.contrib.fluxcd.io/v1alpha2
+kind: Terraform
+metadata:
+  name: vault-terraform
+  namespace: flux-system
+spec:
+  path: ./entity/platform-engineering/local/vault-terraform
+  interval: 1m
+  approvePlan: auto
+  storeReadablePlan: human
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  runnerPodTemplate:
+    spec:
+      env:
+      - name: VAULT_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: vault-root-token
+            key: root_token
+

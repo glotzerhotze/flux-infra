@@ -1,0 +1,17 @@
+apiVersion: minio.min.io/v2
+kind: Tenant
+metadata:
+  name: minio
+  namespace: minio
+spec:
+  prometheus:
+    diskCapacityGB: 5
+    storageClassName: standard
+    nodeSelector:
+      klessen.cloud/minio: "local"
+    resources: {}
+    securityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000

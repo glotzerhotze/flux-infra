@@ -1,0 +1,26 @@
+apiVersion: minio.min.io/v2
+kind: Tenant
+metadata:
+  name: minio
+  namespace: minio
+  labels:
+    app: minio
+spec:
+  features:
+    bucketDNS: false
+    domains: { }
+  users: []
+  buckets: []
+  podManagementPolicy: Parallel
+  configuration:
+    name: storage-configuration
+  credsSecret:
+    name: storage-creds-secret
+  externalCaCertSecret:
+    - name: minio-kes-tls
+      type: Opaque
+  image: quay.io/minio/minio:RELEASE.2022-08-02T23-59-16Z
+  mountPath: /export
+  requestAutoCert: true
+  exposeServices:
+    console: false

@@ -1,0 +1,195 @@
+# Vault Helm Chart Value Overrides
+global:
+  enabled: true
+  tlsDisable: false
+
+injector:
+  enabled: false
+
+server:
+  enabled: true
+
+  # These Resource Limits are in line with node requirements in the
+  # Vault Reference Architecture for a Small Cluster
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 250m
+    limits:
+      memory: 256Mi
+      cpu: 250m
+
+  ingress:
+    enabled: false
+    labels: {}
+    # traffic: external
+    annotations: {}
+      # |
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+      #   or
+      # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+
+    # Optionally use ingressClassName instead of deprecated annotation.
+    # See: https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation
+    ingressClassName: "cilium"
+
+    # As of Kubernetes 1.19, all Ingress Paths must have a pathType configured. The default value below should be sufficient in most cases.
+    # See: https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types for other possible values.
+    pathType: Prefix
+
+    # When HA mode is enabled and K8s service registration is being used,
+    # configure the ingress to point to the Vault active service.
+    activeService: true
+    hosts:
+      - host: vault.local.klessen.cloud
+        paths: []
+    ## Extra paths to prepend to the host configuration. This is useful when working with annotation based services.
+    extraPaths: []
+    # - path: /*
+    #   backend:
+    #     service:
+    #       name: ssl-redirect
+    #       port:
+    #         number: use-annotation
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+
+  logLevel: info
+  # For HA configuration and because we need to manually init the vault,
+  # we need to define custom readiness/liveness Probe settings
+  readinessProbe:
+    enabled: true
+    path: "/v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204"
+  livenessProbe:
+    enabled: true
+    path: "/v1/sys/health?standbyok=true"
+    initialDelaySeconds: 60
+
+  # extraEnvironmentVars is a list of extra environment variables to set with the stateful set. These could be
+  # used to include variables required for auto-unseal.
+  extraEnvironmentVars:
+    VAULT_CACERT: /vault/userconfig/tls-ca/tls.crt
+
+  # extraVolumes is a list of extra volumes to mount. These will be exposed
+  # to Vault in the path `/vault/userconfig/<name>/`.
+  extraVolumes:
+    - type: secret
+      name: tls-server
+    - type: secret
+      name: tls-ca
+
+  service:
+    enabled: true
+    type: LoadBalancer
+    #clusterIP: None
+    annotations: {}
+    loadBalancerIP: "172.18.0.112"
+
+  # This configures the Vault Statefulset to create a PVC for audit logs.
+  # See https://www.vaultproject.io/docs/audit/index.html to know more
+  auditStorage:
+    enabled: true
+    size: 1Gi
+    mountPath: "/vault/audit"
+    storageClass: null
+    accessMode: ReadWriteOnce
+    annotations: {}
+
+  dataStorage:
+    enabled: true
+    size: 1Gi
+    mountPath: "/vault/data"
+    storageClass: null
+    accessMode: ReadWriteOnce
+    annotations: {}
+
+  standalone:
+    enabled: false
+
+  # Run Vault in "HA" mode.
+  ha:
+    enabled: true
+    replicas: 3
+    apiAddr: https://vault-active.vault.svc.cluster.local:8200
+    clusteraddr: https://vault-internal.vault.svc.cluster.local:8201
+
+    raft:
+      enabled: true
+      setNodeId: true
+
+      config: |
+        ui = true
+        
+        listener "tcp" {
+          address = "0.0.0.0:8200"
+          tls_disable = 0
+          tls_cert_file = "/vault/userconfig/tls-server/tls.crt"
+          tls_key_file = "/vault/userconfig/tls-server/tls.key"
+          tls_min_version = "tls12"
+        }
+
+        storage "raft" {
+          path = "/vault/data"
+          cluster_addr = "https://vault-internal.vault:8201"
+          retry_join {
+            leader_tls_servername = "vault-internal.vault"
+            leader_api_addr = "https://vault-0.vault-internal:8200"
+            leader_ca_cert_file = "/vault/userconfig/tls-ca/tls.crt"
+            leader_client_cert_file = "/vault/userconfig/tls-server/tls.crt"
+            leader_client_key_file = "/vault/userconfig/tls-server/tls.key"
+          }
+          retry_join {
+            leader_tls_servername = "vault-internal.vault"
+            leader_api_addr = "https://vault-1.vault-internal:8200"
+            leader_ca_cert_file = "/vault/userconfig/tls-ca/tls.crt"
+            leader_client_cert_file = "/vault/userconfig/tls-server/tls.crt"
+            leader_client_key_file = "/vault/userconfig/tls-server/tls.key"
+          }
+          retry_join {
+            leader_tls_servername = "vault-internal.vault"
+            leader_api_addr = "https://vault-2.vault-internal:8200"
+            leader_ca_cert_file = "/vault/userconfig/tls-ca/tls.crt"
+            leader_client_cert_file = "/vault/userconfig/tls-server/tls.crt"
+            leader_client_key_file = "/vault/userconfig/tls-server/tls.key"
+          }
+          autopilot {
+            cleanup_dead_servers = "true"
+            last_contact_threshold = "200ms"
+            last_contact_failure_threshold = "10m"
+            max_trailing_logs = 250000
+            min_quorum = 3
+            server_stabilization_time = "10s"
+          }
+        }
+
+        service_registration "kubernetes" {}
+
+# Vault UI
+ui:
+  enabled: true
+  serviceType: "LoadBalancer"
+  serviceNodePort: null
+  externalPort: 443
+
+  # The externalTrafficPolicy can be set to either Cluster or Local
+  # and is only valid for LoadBalancer and NodePort service types.
+  # The default value is Cluster.
+  # ref: https://kubernetes.io/docs/concepts/services-networking/service/#external-traffic-policy
+  #externalTrafficPolicy: Cluster
+  externalTrafficPolicy: Local
+
+  # For Added Security, edit the below
+  #loadBalancerSourceRanges:
+  #   - 10.0.0.0/16
+  #   - 1.78.23.3/32
+
+  loadBalancerIP: "172.18.0.111"
+
+  # Extra annotations to attach to the ui service
+  # This can either be YAML or a YAML-formatted multi-line templated string map
+  # of the annotations to apply to the ui service
+  annotations: {}

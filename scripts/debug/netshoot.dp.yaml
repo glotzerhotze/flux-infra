@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-netshoot-warehouse-rook-fs-data
+  namespace: default
+  labels:
+    app: nginx-netshoot-data
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-netshoot-data
+  template:
+    metadata:
+      labels:
+        app: nginx-netshoot-data
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.14.2
+          ports:
+            - containerPort: 80
+        - name: netshoot
+          image: nicolaka/netshoot
+          command: ["/bin/bash"]
+          args: ["-c", "while true; do ping localhost; sleep 60;done"]
+

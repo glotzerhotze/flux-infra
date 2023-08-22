@@ -1,0 +1,23 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: log
+spec:
+  version: 0.0.0
+  http:
+    tls:
+      selfSignedCertificate: {}
+  nodeSets:
+    - name: cluster
+      count: 2
+      config: {}
+      podTemplate:
+        spec:
+          containers:
+            - name: elasticsearch
+      volumeClaimTemplates:
+        - metadata:
+            name: elasticsearch-data
+          spec:
+            accessModes:
+              - ReadWriteOnce

@@ -1,0 +1,44 @@
+address: :7373
+#admin:
+#  identity: disabled
+root: _
+tls:
+  key: /tmp/kes/server.key
+  cert: /tmp/kes/server.crt
+  proxy:
+    identities: []
+    header:
+      cert: X-Tls-Client-Cert
+policy:
+  my-policy:
+    paths:
+    - /v1/key/create/*
+    - /v1/key/generate/*
+    - /v1/key/decrypt/*
+    identities:
+    - ${MINIO_KES_IDENTITY}
+cache:
+  expiry:
+    any: 5m0s
+    unused: 20s
+log:
+  error: on
+  audit: on
+keys:
+  vault:
+    endpoint: "https://vault-active.vault.svc.cluster.local:8200"
+    version: "v2"
+    engine: "secrets"
+    namespace: ""
+    prefix: "minio/"
+    approle:
+      engine: "approle/kes/"
+      id: "${APPROLE_ROLE_ID}"
+      secret: "${APPROLE_SECRET_ID}"
+      retry: 15s
+    tls:
+      key: ""
+      cert: ""
+      ca: "/tmp/kes/vault-ca.crt"
+    status:
+      ping: 10s

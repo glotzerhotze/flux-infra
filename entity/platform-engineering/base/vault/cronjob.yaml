@@ -1,0 +1,29 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: vault-bootstrap
+spec:
+  schedule: "*/2 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: vault-bootstrap
+          volumes:
+            - name: vault-bootstrap
+              configMap:
+                name: vault-bootstrap
+                defaultMode: 0755
+          containers:
+            - name: vault-bootstrap
+              ## for AMD64 use this: bitname/kubectl:1.25.0
+              image: bitnami/kubectl:1.25.0
+              imagePullPolicy: IfNotPresent
+              command:
+                - /vault-bootstrap/vault-bootstrap.sh
+              volumeMounts:
+                - name: vault-bootstrap
+                  mountPath: /vault-bootstrap
+          restartPolicy: OnFailure

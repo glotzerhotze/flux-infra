@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- log-es-cluster.yaml
+- log.ns.yaml
+namespace: log
+secretGenerator:
+- name: log-es-tls
+  files:
+  - config/tls.key
+  - config/tls.crt
+  - config/ca.crt
+generatorOptions:
+  disableNameSuffixHash: true

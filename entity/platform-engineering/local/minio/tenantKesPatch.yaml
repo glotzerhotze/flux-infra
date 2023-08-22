@@ -1,0 +1,14 @@
+- op: replace
+  path: /spec/kes/replicas
+  value: 1
+
+- op: replace
+  path: /spec/kes/nodeSelector
+  value:
+    klessen.cloud/minio: local
+
+- op: add
+  path: /spec/kes/tolerations
+  value:
+    - key: klessen.cloud/minio
+      operator: Exists

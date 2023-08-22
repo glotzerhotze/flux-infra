@@ -1,0 +1,13 @@
+- op: add
+  path: /spec/jobTemplate/spec/template/spec/containers/0/env
+  value:
+    - name: AWS_SECRET_KEY_ID
+      valueFrom:
+        secretKeyRef:
+          name: sealedsecrets-aws-credentials
+          key: secret_key_id
+    - name: AWS_SECRET_ACCESS_KEY
+      valueFrom:
+        secretKeyRef:
+          name: sealedsecrets-aws-credentials
+          key: secret_access_key

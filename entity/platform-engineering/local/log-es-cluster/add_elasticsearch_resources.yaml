@@ -1,0 +1,10 @@
+## Add resources for the individual pods that get spawned
+- op: add
+  path: /spec/nodeSets/0/podTemplate/spec/containers/0/resources
+  value:
+    requests:
+      memory: "8G"
+      cpu: "1000m"
+    limits:
+      memory: "8G"
+      cpu: "2000m"

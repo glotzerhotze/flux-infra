@@ -1,0 +1,9 @@
+## This will define the subject alternative names used for certificate creation
+- op: add
+  path: /spec/http
+  value:
+    tls:
+      selfSignedCertificate:
+        subjectAltNames:
+          - dns: log-es-cluster-0
+          - dns: log-es-cluster-1

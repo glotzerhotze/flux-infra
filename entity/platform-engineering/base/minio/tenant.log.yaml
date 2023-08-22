@@ -1,0 +1,37 @@
+apiVersion: minio.min.io/v2
+kind: Tenant
+metadata:
+  name: minio
+  namespace: minio
+spec:
+  log:
+    nodeSelector:
+      klessen.cloud/minio: "local"
+    audit:
+      diskCapacityGB: 5
+    db:
+      resources: {}
+      nodeSelector:
+        klessen.cloud/minio: "local"
+      securityContext:
+        fsGroup: 999
+        runAsGroup: 999
+        runAsNonRoot: true
+        runAsUser: 999
+      volumeClaimTemplate:
+        metadata:
+          name: minio-log
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: "5368709120"
+          storageClassName: standard
+        status: {}
+    resources: {}
+    securityContext:
+      fsGroup: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
+      runAsUser: 1000

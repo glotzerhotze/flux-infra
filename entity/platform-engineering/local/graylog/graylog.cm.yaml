@@ -1,0 +1,246 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: graylog
+  namespace: log
+  labels:
+    service: graylog
+    academy: shared
+data:
+  graylog-permissions.json: |
+    {
+      "_type" : "doc",
+      "_id" : "application-privilege_graylog:all",
+      "_score" : 1.0,
+      "_source" : {
+        "application" : "graylog",
+        "name" : "all",
+        "actions" : [
+          "version:6.8.12",
+          "action:*"
+        ],
+        "metadata" : { },
+        "type" : "application-privilege"
+      }
+  security-index.json: |
+    {
+        "settings" : {
+            "number_of_shards" : 2,
+            "number_of_replicas" : 0
+        },
+        "mappings" : {
+          "doc": {
+            "dynamic": "strict",
+            "_meta": {
+              "security-version": "6.8.12"
+            },
+            "properties": {
+              "access_token": {
+                "properties": {
+                  "invalidated": {
+                    "type": "boolean"
+                  },
+                  "realm": {
+                    "type": "keyword"
+                  },
+                  "user_token": {
+                    "properties": {
+                      "authentication": {
+                        "type": "binary"
+                      },
+                      "expiration_time": {
+                        "type": "date",
+                        "format": "epoch_millis"
+                      },
+                      "id": {
+                        "type": "keyword"
+                      },
+                      "metadata": {
+                        "type": "object",
+                        "dynamic": "false"
+                      },
+                      "version": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              },
+              "actions": {
+                "type": "keyword"
+              },
+              "api_key_hash": {
+                "type": "keyword",
+                "index": false,
+                "doc_values": false
+              },
+              "api_key_invalidated": {
+                "type": "boolean"
+              },
+              "application": {
+                "type": "keyword"
+              },
+              "applications": {
+                "properties": {
+                  "application": {
+                    "type": "keyword"
+                  },
+                  "privileges": {
+                    "type": "keyword"
+                  },
+                  "resources": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "cluster": {
+                "type": "keyword"
+              },
+              "creation_time": {
+                "type": "date",
+                "format": "epoch_millis"
+              },
+              "creator": {
+                "properties": {
+                  "metadata": {
+                    "type": "object",
+                    "dynamic": "false"
+                  },
+                  "principal": {
+                    "type": "keyword"
+                  },
+                  "realm": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "doc_type": {
+                "type": "keyword"
+              },
+              "email": {
+                "type": "text",
+                "analyzer": "email"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "expiration_time": {
+                "type": "date",
+                "format": "epoch_millis"
+              },
+              "full_name": {
+                "type": "text"
+              },
+              "global": {
+                "properties": {
+                  "application": {
+                    "properties": {
+                      "manage": {
+                        "properties": {
+                          "applications": {
+                            "type": "keyword"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "indices": {
+                "properties": {
+                  "allow_restricted_indices": {
+                    "type": "boolean"
+                  },
+                  "field_security": {
+                    "properties": {
+                      "except": {
+                        "type": "keyword"
+                      },
+                      "grant": {
+                        "type": "keyword"
+                      }
+                    }
+                  },
+                  "names": {
+                    "type": "keyword"
+                  },
+                  "privileges": {
+                    "type": "keyword"
+                  },
+                  "query": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "limited_by_role_descriptors": {
+                "type": "object",
+                "enabled": false
+              },
+              "metadata": {
+                "type": "object",
+                "dynamic": "false"
+              },
+              "name": {
+                "type": "keyword"
+              },
+              "password": {
+                "type": "keyword",
+                "index": false,
+                "doc_values": false
+              },
+              "refresh_token": {
+                "properties": {
+                  "client": {
+                    "properties": {
+                      "realm": {
+                        "type": "keyword"
+                      },
+                      "type": {
+                        "type": "keyword"
+                      },
+                      "user": {
+                        "type": "keyword"
+                      }
+                    }
+                  },
+                  "invalidated": {
+                    "type": "boolean"
+                  },
+                  "refreshed": {
+                    "type": "boolean"
+                  },
+                  "token": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "role_descriptors": {
+                "type": "object",
+                "enabled": false
+              },
+              "roles": {
+                "type": "keyword"
+              },
+              "rules": {
+                "type": "object",
+                "dynamic": "false"
+              },
+              "run_as": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              },
+              "username": {
+                "type": "keyword"
+              },
+              "version": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "aliases" : {
+          ".security" : {}
+        }
+    }

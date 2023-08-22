@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: graylog-external
+  namespace: log
+  labels:
+    academy: shared
+    service: graylog
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 192.168.44.14
+  selector:
+    academy: shared
+    service: graylog
+  ports:
+  - name: web
+    nodePort: 32353
+    port: 9000
+    protocol: TCP
+    targetPort: web
+  - name: api
+    nodePort: 30005
+    port: 12900
+    protocol: TCP
+    targetPort: api
+  - name: syslog
+    nodePort: 31411
+    port: 5514
+    protocol: TCP
+    targetPort: syslog

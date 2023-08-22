@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - k8ssandra-operator.ns.yaml
+namespace: k8ssandra-operator
+commonLabels:
+  app: k8ssandra-operator
+  owner: platform-engineering
+configurations:
+  - kustomizeconfig.yaml

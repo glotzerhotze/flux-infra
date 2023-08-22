@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: graylog
+spec:
+  selector:
+    app: graylog
+  ports:
+    - name: web
+      port: 9000
+      targetPort: web
+    - name: api
+      port: 12900
+      targetPort: api
+    - name: gelf
+      port: 12201
+      protocol: UDP
+      targetPort: gelf
+    - name: gelftcp
+      port: 12201
+      protocol: TCP
+      targetPort: gelftcp
+    - name: syslog
+      port: 12591
+      protocol: UDP
+      targetPort: syslog

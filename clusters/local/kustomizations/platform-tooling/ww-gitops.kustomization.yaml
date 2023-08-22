@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: ww-gitops
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  path: ./entity/platform-engineering/local/ww-gitops
+  prune: true
+  wait: true
+  timeout: 3m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+#  healthChecks:
+#    - apiVersion: apps/v1
+#      kind: Deployment
+#      name: external-connectivity-check
+#      namespace: external-connectivity-check
