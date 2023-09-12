@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./entity/platform-engineering/local/log-es-cluster
+  path: ./entity/platform-tooling/local/log-es-cluster
   prune: true
   sourceRef:
     kind: GitRepository

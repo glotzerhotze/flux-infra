@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./entity/platform-engineering/local/vault
+  path: ./entity/platform-tooling/local/vault
   prune: true
   wait: true
   timeout: 3m

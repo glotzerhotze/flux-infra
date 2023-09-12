@@ -12,7 +12,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./entity/platform-engineering/local/k8ssandra-operator
+  path: ./entity/platform-tooling/local/k8ssandra-operator
   prune: true
   wait: true
   timeout: 3m

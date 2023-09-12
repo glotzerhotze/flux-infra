@@ -10,7 +10,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./entity/platform-engineering/local/cert-manager
+  path: ./entity/platform-tooling/local/cert-manager
   prune: true
   wait: true
   timeout: 3m

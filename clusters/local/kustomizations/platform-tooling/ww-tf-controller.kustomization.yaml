@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./entity/platform-engineering/local/ww-tf-controller
+  path: ./entity/platform-tooling/local/ww-tf-controller
   prune: true
   wait: true
   timeout: 3m

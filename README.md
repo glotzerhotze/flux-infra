@@ -19,4 +19,7 @@ bootstrap from company repo:
  flux bootstrap github --owner=${MY_GITHUB_ORG} --repository=${MY_GITHUB_REPO} --path=clusters/local --branch=main --read-write-key --team ${MY_GITHUB_TEAM} --hostname github.com
 ```
 
+# license disclaimer
+this code-base is structured and based on the original works of those entities mentioned in the `LICENSE`
+this code-base should serve as a research project aiming for collaboration with the community and developing gitops best-practices
 

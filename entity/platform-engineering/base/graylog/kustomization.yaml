@@ -1,9 +1,0 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - graylog.dp.yaml
-  - graylog.svc.yaml
-namespace: log
-commonLabels:
-  app: graylog
-  owner: platform-engineering

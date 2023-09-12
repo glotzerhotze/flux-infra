@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./entity/platform-engineering/local/minio-operator
+  path: ./entity/platform-tooling/local/minio-operator
   prune: true
   timeout: 10m
   sourceRef:

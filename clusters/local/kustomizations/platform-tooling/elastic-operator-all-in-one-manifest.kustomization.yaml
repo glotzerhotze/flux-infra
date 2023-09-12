@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./entity/platform-engineering/local/elastic-operator-all-in-one-manifest
+  path: ./entity/platform-tooling/local/elastic-operator-all-in-one-manifest
   prune: true
   timeout: 10m
   sourceRef:
