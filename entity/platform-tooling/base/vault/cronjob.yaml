@@ -19,7 +19,7 @@ spec:
           containers:
             - name: vault-bootstrap
               ## for AMD64 use this: bitname/kubectl:1.25.0
-              image: bitnami/kubectl:1.27.0
+              image: bitnami/kubectl:1.27.5
               imagePullPolicy: IfNotPresent
               command:
                 - /vault-bootstrap/vault-bootstrap.sh
