@@ -1,4 +1,4 @@
-# Copyright 2022 The Cockroach Authors
+# Copyright 2023 The Cockroach Authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -538,8 +538,50 @@ spec:
           value: cockroachdb/cockroach:v22.1.11
         - name: RELATED_IMAGE_COCKROACH_v22_1_12
           value: cockroachdb/cockroach:v22.1.12
+        - name: RELATED_IMAGE_COCKROACH_v22_1_13
+          value: cockroachdb/cockroach:v22.1.13
+        - name: RELATED_IMAGE_COCKROACH_v22_1_14
+          value: cockroachdb/cockroach:v22.1.14
+        - name: RELATED_IMAGE_COCKROACH_v22_1_15
+          value: cockroachdb/cockroach:v22.1.15
+        - name: RELATED_IMAGE_COCKROACH_v22_1_16
+          value: cockroachdb/cockroach:v22.1.16
+        - name: RELATED_IMAGE_COCKROACH_v22_1_18
+          value: cockroachdb/cockroach:v22.1.18
+        - name: RELATED_IMAGE_COCKROACH_v22_1_20
+          value: cockroachdb/cockroach:v22.1.20
         - name: RELATED_IMAGE_COCKROACH_v22_2_0
           value: cockroachdb/cockroach:v22.2.0
+        - name: RELATED_IMAGE_COCKROACH_v22_2_1
+          value: cockroachdb/cockroach:v22.2.1
+        - name: RELATED_IMAGE_COCKROACH_v22_2_2
+          value: cockroachdb/cockroach:v22.2.2
+        - name: RELATED_IMAGE_COCKROACH_v22_2_3
+          value: cockroachdb/cockroach:v22.2.3
+        - name: RELATED_IMAGE_COCKROACH_v22_2_4
+          value: cockroachdb/cockroach:v22.2.4
+        - name: RELATED_IMAGE_COCKROACH_v22_2_5
+          value: cockroachdb/cockroach:v22.2.5
+        - name: RELATED_IMAGE_COCKROACH_v22_2_6
+          value: cockroachdb/cockroach:v22.2.6
+        - name: RELATED_IMAGE_COCKROACH_v22_2_7
+          value: cockroachdb/cockroach:v22.2.7
+        - name: RELATED_IMAGE_COCKROACH_v22_2_8
+          value: cockroachdb/cockroach:v22.2.8
+        - name: RELATED_IMAGE_COCKROACH_v22_2_9
+          value: cockroachdb/cockroach:v22.2.9
+        - name: RELATED_IMAGE_COCKROACH_v22_2_10
+          value: cockroachdb/cockroach:v22.2.10
+        - name: RELATED_IMAGE_COCKROACH_v23_1_0
+          value: cockroachdb/cockroach:v23.1.0
+        - name: RELATED_IMAGE_COCKROACH_v23_1_1
+          value: cockroachdb/cockroach:v23.1.1
+        - name: RELATED_IMAGE_COCKROACH_v23_1_2
+          value: cockroachdb/cockroach:v23.1.2
+        - name: RELATED_IMAGE_COCKROACH_v23_1_3
+          value: cockroachdb/cockroach:v23.1.3
+        - name: RELATED_IMAGE_COCKROACH_v23_1_4
+          value: cockroachdb/cockroach:v23.1.4
         - name: OPERATOR_NAME
           value: cockroachdb
         - name: POD_NAME
@@ -550,7 +592,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        image: cockroachdb/cockroach-operator:v2.9.0
+        image: cockroachdb/cockroach-operator:v2.11.0
         imagePullPolicy: IfNotPresent
         name: cockroach-operator
         resources:
