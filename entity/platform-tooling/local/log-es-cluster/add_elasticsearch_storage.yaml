@@ -1,9 +1,9 @@
 ## Add a storageClass and size to use for persistant storage inside the cluster
 - op: add
   path: /spec/nodeSets/0/volumeClaimTemplates/0/spec/storageClassName
-  value: "local-storage"
+  value: "standard"
 - op: add
   path: /spec/nodeSets/0/volumeClaimTemplates/0/spec/resources
   value:
     requests:
-      storage: 300Gi
+      storage: 3Gi
