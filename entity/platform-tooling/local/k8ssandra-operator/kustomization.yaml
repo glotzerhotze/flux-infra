@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - ../../base/k8ssandra-operator
   - release.yaml
-namespace: k8ssandra-operator
 commonLabels:
   app: k8ssandra-operator
   owner: platform-tooling
