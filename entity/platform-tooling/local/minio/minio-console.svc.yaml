@@ -7,7 +7,7 @@ metadata:
 spec:
   externalTrafficPolicy: Local
   ports:
-    - name: https-console
+    - name: https-console-lb
       port: 443
       protocol: TCP
       targetPort: 9443

@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: eck-operator
-      version: 'v1.3.0'
+      version: 'v2.9.0'
       sourceRef:
         kind: HelmRepository
         name: eck-operator
