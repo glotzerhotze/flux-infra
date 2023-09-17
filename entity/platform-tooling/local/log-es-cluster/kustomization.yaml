@@ -37,3 +37,9 @@ patchesJson6902:
       version: v1
       kind: Elasticsearch
       name: log
+  - path: add_elasticsearch_storage.yaml
+    target:
+      group: elasticsearch.k8s.elastic.co
+      version: v1
+      kind: Elasticsearch
+      name: log
