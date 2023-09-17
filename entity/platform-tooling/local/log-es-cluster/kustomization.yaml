@@ -7,12 +7,12 @@ commonLabels:
   app: graylog
   owner: platform-tooling
 patchesJson6902:
-  - path: add_cluster_config.yaml
-    target:
-      group: elasticsearch.k8s.elastic.co
-      version: v1
-      kind: Elasticsearch
-      name: log
+  ##- path: add_cluster_config.yaml
+  ##  target:
+  ##    group: elasticsearch.k8s.elastic.co
+  ##    version: v1
+  ##    kind: Elasticsearch
+  ##    name: log
   - path: add_elasticsearch_memory_settings.yaml
     target:
       group: elasticsearch.k8s.elastic.co

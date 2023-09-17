@@ -3,8 +3,8 @@
   path: /spec/nodeSets/0/podTemplate/spec/containers/0/resources
   value:
     requests:
-      memory: "8G"
-      cpu: "1000m"
+      memory: "1G"
+      cpu: "500m"
     limits:
-      memory: "8G"
-      cpu: "2000m"
+      memory: "1G"
+      cpu: "500m"

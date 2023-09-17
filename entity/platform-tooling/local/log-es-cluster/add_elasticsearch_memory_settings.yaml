@@ -3,4 +3,4 @@
   path: /spec/nodeSets/0/podTemplate/spec/containers/0/env
   value:
     - name: ES_JAVA_OPTS
-      value: "-Xms4g -Xmx4g"
+      value: "-Xms512m -Xmx512m"
