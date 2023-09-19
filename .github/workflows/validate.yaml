@@ -1,0 +1,59 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches:
+    - 'main'
+
+jobs:
+
+  yaml-verify:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Verify YAML syntax
+      run: ./scripts/validation/yaml.sh
+
+  cluster-verify:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Setup tools
+      uses: ./.github/actions/tools
+    - name: Verify flux clusters
+      run: ./scripts/validation/clusters.sh
+
+  platform-tooling-verify:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Install python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.x'
+    - name: Install YAML python package
+      run: pip3 install pyyaml
+    - name: Setup tools
+      uses: ./.github/actions/tools
+    - name: Verify platform-tooling entity
+      run: ./scripts/validation/entity.sh platform-tooling
+
+  other-verify:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Install python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.x'
+    - name: Install YAML python package
+      run: pip3 install pyyaml
+    - name: Setup tools
+      uses: ./.github/actions/tools
+    - name: Verify other entities
+      run: ./scripts/validation/entity.sh other
