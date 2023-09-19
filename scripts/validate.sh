@@ -55,6 +55,21 @@ mkdir -p /tmp/cilium-crd-schemas
 # elasticsearch
 mkdir -p /tmp/eck-crd-schemas
 
+# kubegres
+mkdir -p /tmp/kubegres-crd-schemas
+
+# cert-manager
+mkdir -p /tmp/cert-manager-crd-schemas
+
+# cert-manager
+mkdir -p /tmp/k8ssandra-operator-crd-schemas
+
+# minIO-operator
+mkdir -p /tmp/minio-operator-crd-schemas
+
+# WW-TF-operator
+mkdir -p /tmp/ww-terraform-operator-crd-schemas
+
 echo "===== Schema conversion to comply with kubeconform ====="
 echo
 
@@ -87,11 +102,65 @@ if [[ ${PIPESTATUS[0]} != 0 ]]; then
 fi
 popd
 
+# kubegres: convert YAML CRD to JSON schemas
+echo "Kubegres schema transformation"
+pushd /tmp/kubegres-crd-schemas/
+python "$SCHEMA_CONVERTER" https://raw.githubusercontent.com/reactive-tech/kubegres/main/config/crd/bases/kubegres.reactive-tech.io_kubegres.yaml
+if [[ ${PIPESTATUS[0]} != 0 ]]; then
+  exit 1
+fi
+popd
+
+# cert-manager: convert YAML CRD to JSON schemas
+echo "Cert-Manager schema transformation"
+pushd /tmp/ww-terraform-operator-crd-schemas/
+for file in crd-certificaterequests crd-certificates crd-challenges crd-clusterissuers crd-issuers crd-orders
+  do
+    python "$SCHEMA_CONVERTER" "https://raw.githubusercontent.com/cert-manager/cert-manager/v1.13.0/deploy/crds/$file.yaml"
+    if [[ ${PIPESTATUS[0]} != 0 ]]; then
+      exit 1
+    fi
+  done
+popd
+
+# k8ssandra-operator: convert the YAML CRDs to JSON schemas
+echo "K8ssandra-Operator schema transformation"
+pushd /tmp/k8ssandra-operator-crd-schemas/
+for file in k8ssandra.io_k8ssandraclusters stargate.k8ssandra.io_stargates config.k8ssandra.io_clientconfigs replication.k8ssandra.io_replicatedsecrets reaper.k8ssandra.io_reapers medusa.k8ssandra.io_medusatasks medusa.k8ssandra.io_medusabackups medusa.k8ssandra.io_medusabackupjobs medusa.k8ssandra.io_medusarestorejobs medusa.k8ssandra.io_medusabackupschedules control.k8ssandra.io_k8ssandratasks
+  do
+    python "$SCHEMA_CONVERTER" "https://raw.githubusercontent.com/k8ssandra/k8ssandra-operator/v1.8.1/config/crd/bases/$file.yaml"
+    if [[ ${PIPESTATUS[0]} != 0 ]]; then
+      exit 1
+    fi
+  done
+popd
+
+# minio-operator: convert YAML CRD to JSON schemas
+echo "minIO Operator schema transformation"
+pushd /tmp/minio-operator-crd-schemas/
+python "$SCHEMA_CONVERTER" https://raw.githubusercontent.com/minio/operator/v4.5.8/resources/base/crds/minio.min.io_tenants.yaml
+if [[ ${PIPESTATUS[0]} != 0 ]]; then
+  exit 1
+fi
+popd
+
+# ww-terraform-operator: convert the YAML CRDs to JSON schemas
+echo "WeaveWorks TF Operator schema transformation"
+pushd /tmp/ww-terraform-operator-crd-schemas/
+for file in infra.contrib.fluxcd.io_terraforms ocirepositories
+  do
+    python "$SCHEMA_CONVERTER" "https://raw.githubusercontent.com/weaveworks/tf-controller/v0.15.1/config/crd/bases/$file.yaml"
+    if [[ ${PIPESTATUS[0]} != 0 ]]; then
+      exit 1
+    fi
+  done
+popd
+
 echo "===== Validating flux clusters ====="
 find ./clusters -type f -name '*.yaml' -print0 | while IFS= read -r -d $'\0' file;
   do
     echo "INFO - Validating ${file}"
-    kubeconform -strict -summary -kubernetes-version 1.19.0 -exit-on-error -skip CustomResourceDefinition \
+    kubeconform -strict -summary -kubernetes-version 1.27.3 -exit-on-error -skip CustomResourceDefinition \
       -ignore-filename-pattern increase_kustomize_concurrency.yaml \
       -schema-location default \
       -schema-location '/tmp/flux-crd-schemas/master-standalone-strict/{{ .ResourceKind }}-{{ .ResourceAPIVersion }}.json' \
@@ -102,7 +171,7 @@ find ./clusters -type f -name '*.yaml' -print0 | while IFS= read -r -d $'\0' fil
 done
 
 # mirror kustomize-controller build options
-kustomize_flags="--load-restrictor=LoadRestrictionsNone --reorder=legacy"
+kustomize_flags="--load-restrictor=LoadRestrictionsNone"
 kustomize_config="kustomization.yaml"
 
 echo "===== Validating kustomize overlays ====="
@@ -110,11 +179,16 @@ find . -type f -name $kustomize_config -print0 | while IFS= read -r -d $'\0' fil
   do
     echo "INFO - Validating kustomization ${file/%$kustomize_config}"
     kustomize build "${file/%$kustomize_config}" $kustomize_flags | \
-      kubeconform -strict -summary -kubernetes-version 1.19.0 -exit-on-error -skip CustomResourceDefinition \
+      kubeconform -strict -summary -kubernetes-version 1.27.3 -exit-on-error -skip CustomResourceDefinition \
         -schema-location default \
         -schema-location '/tmp/flux-crd-schemas/master-standalone-strict/{{ .ResourceKind }}-{{ .ResourceAPIVersion }}.json' \
         -schema-location '/tmp/cilium-crd-schemas/{{ .ResourceKind }}_{{ .ResourceAPIVersion }}.json' \
-        -schema-location '/tmp/eck-crd-schemas/{{ .ResourceKind }}_{{ .ResourceAPIVersion }}.json'
+        -schema-location '/tmp/eck-crd-schemas/{{ .ResourceKind }}_{{ .ResourceAPIVersion }}.json' \
+        -schema-location '/tmp/kubegres-crd-schemas/{{ .ResourceKind }}_{{ .ResourceAPIVersion }}.json' \
+        -schema-location '/tmp/cert-manager-crd-schemas/{{ .ResourceKind }}_{{ .ResourceAPIVersion }}.json' \
+        -schema-location '/tmp/k8ssandra-operator-crd-schemas/{{ .ResourceKind }}_{{ .ResourceAPIVersion }}.json' \
+        -schema-location '/tmp/minio-operator-crd-schemas/{{ .ResourceKind }}_{{ .ResourceAPIVersion }}.json' \
+        -schema-location '/tmp/ww-terraform-operator-crd-schemas/{{ .ResourceKind }}_{{ .ResourceAPIVersion }}.json'
     if [[ ${PIPESTATUS[0]} != 0 ]]; then
       exit 1
     fi
