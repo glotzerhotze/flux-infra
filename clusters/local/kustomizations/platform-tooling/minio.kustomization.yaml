@@ -10,8 +10,8 @@ spec:
   prune: true
   wait: true
   timeout: 5m
-  #dependsOn:
-  #  - name: minio-operator
+  dependsOn:
+    - name: minio-operator
   #  - name: bootstrap-ns-minio
   sourceRef:
     kind: GitRepository
