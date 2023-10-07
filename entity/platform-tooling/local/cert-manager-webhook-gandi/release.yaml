@@ -12,7 +12,7 @@ spec:
       version: 'v0.2.0'
       sourceRef:
         kind: HelmRepository
-        name: cert-manager
+        name: cert-manager-webhook-gandi
         namespace: flux-system
       interval: 5m
   valuesFrom:
