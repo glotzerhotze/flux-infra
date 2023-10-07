@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - ../../base/cert-manager
   - release.yaml
+  - letsencrypt.c-issuer.yaml
 namespace: cert-manager
 commonLabels:
   owner: platform-tooling
