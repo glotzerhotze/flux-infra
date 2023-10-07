@@ -7,5 +7,5 @@ spec:
   - klessen.cloud
   - '*.klessen.cloud'
   issuerRef:
-    name: letsencrypt-staging
+    name: letsencrypt
   secretName: klessen-cloud-tls
