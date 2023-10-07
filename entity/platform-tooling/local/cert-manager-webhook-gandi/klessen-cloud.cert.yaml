@@ -8,4 +8,5 @@ spec:
   - '*.klessen.cloud'
   issuerRef:
     name: letsencrypt
+    kind: ClusterIssuer
   secretName: klessen-cloud-tls
