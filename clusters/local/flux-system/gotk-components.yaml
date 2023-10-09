@@ -3549,13 +3549,13 @@ spec:
     spec:
       containers:
       - args:
-        - --events-addr=http://notification-controller.flux-system.svc.geplaenkel.io./
+        - --events-addr=http://notification-controller.flux-system.svc.cluster.local./
         - --watch-all-namespaces=true
         - --log-level=info
         - --log-encoding=json
         - --enable-leader-election
         - --storage-path=/data
-        - --storage-adv-addr=source-controller.$(RUNTIME_NAMESPACE).svc.geplaenkel.io.
+        - --storage-adv-addr=source-controller.$(RUNTIME_NAMESPACE).svc.cluster.local.
         env:
         - name: RUNTIME_NAMESPACE
           valueFrom:
@@ -5289,7 +5289,7 @@ spec:
     spec:
       containers:
       - args:
-        - --events-addr=http://notification-controller.flux-system.svc.geplaenkel.io./
+        - --events-addr=http://notification-controller.flux-system.svc.cluster.local./
         - --watch-all-namespaces=true
         - --log-level=info
         - --log-encoding=json
@@ -6313,7 +6313,7 @@ spec:
     spec:
       containers:
       - args:
-        - --events-addr=http://notification-controller.flux-system.svc.geplaenkel.io./
+        - --events-addr=http://notification-controller.flux-system.svc.cluster.local./
         - --watch-all-namespaces=true
         - --log-level=info
         - --log-encoding=json
