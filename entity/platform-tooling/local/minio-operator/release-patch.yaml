@@ -7,3 +7,4 @@ spec:
     spec:
       version: 'v5.0.9'
 
+  kubectl minio tenant create minio1 --capacity 16Ti --servers 4 --volumes 16 --namespace minio --image RELEASE.2023-09-23T03-47-50Z --kes-config minio-kes-secret --storage-class warm

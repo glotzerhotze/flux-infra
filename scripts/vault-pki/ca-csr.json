@@ -1,6 +1,6 @@
 {
   "hosts": [
-    "cluster.local"
+    "geplaenkel.io"
   ],
   "key": {
     "algo": "rsa",

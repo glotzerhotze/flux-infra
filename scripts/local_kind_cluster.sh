@@ -107,7 +107,7 @@ else
   mkdir -p /files
   cat << EOF >/files/resolv.conf
 nameserver 8.8.8.8
-search default.svc.cluster.local svc.cluster.local cluster.local
+search default.svc.geplaenkel.io svc.geplaenkel.io geplaenkel.io
 options ndots:5
 EOF
   cp /files/resolv.conf /etc/resolv.conf.k8s
@@ -165,7 +165,7 @@ kubeadmConfigPatches:
     cgroupDriver: systemd
     clusterDNS:
       - 172.21.0.10
-    clusterDomain: cluster.local
+    clusterDomain: geplaenkel.io
     serializeImagePulls: false
     resolvConf: "/files/resolv.conf"
 

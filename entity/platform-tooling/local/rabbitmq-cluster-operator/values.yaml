@@ -37,7 +37,7 @@ commonLabels: {}
 commonAnnotations: {}
 ## @param clusterDomain Kubernetes cluster domain name
 ##
-clusterDomain: cluster.local
+clusterDomain: geplaenkel.io
 ## @param extraDeploy Array of extra objects to deploy with the release
 ##
 extraDeploy: []

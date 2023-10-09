@@ -68,7 +68,7 @@ cfssl gencert \
   -ca=./ca/ca.pem \
   -ca-key=./ca/ca-key.pem \
   -config=ca-config.json \
-  -hostname="vault.staging.klessen.cloud,*.vault-internal,*.vault-internal.vault,*.vault,*.vault.svc,*.vault.svc.cluster.local,localhost,127.0.0.1" \
+  -hostname="vault.staging.klessen.cloud,*.vault-internal,*.vault-internal.vault,*.vault,*.vault.svc,*.vault.svc.geplaenkel.io,localhost,127.0.0.1" \
   -profile=default \
   ca-csr.json | cfssljson -bare ./server/cloud/vault
 ```
@@ -98,7 +98,7 @@ cfssl gencert \
   -ca=./ca/ca.pem \
   -ca-key=./ca/ca-key.pem \
   -config=ca-config.json \
-  -hostname="vault.prod.klessen.cloud,*.vault-internal,*.vault-internal.vault,*.vault,*.vault.svc,*.vault.svc.cluster.local,localhost,127.0.0.1" \
+  -hostname="vault.prod.klessen.cloud,*.vault-internal,*.vault-internal.vault,*.vault,*.vault.svc,*.vault.svc.geplaenkel.io,localhost,127.0.0.1" \
   -profile=default \
   ca-csr.json | cfssljson -bare ./server/bare-metal/vault
 ```
@@ -112,7 +112,7 @@ cfssl gencert \
   -ca=./ca/ca.pem \
   -ca-key=./ca/ca-key.pem \
   -config=ca-config.json \
-  -hostname="vault.local.klessen.cloud,*.vault-internal,*.vault-internal.vault,*.vault,*.vault.svc,*.vault.svc.cluster.local,localhost,127.0.0.1" \
+  -hostname="vault.local.klessen.cloud,*.vault-internal,*.vault-internal.vault,*.vault,*.vault.svc,*.vault.svc.geplaenkel.io,localhost,127.0.0.1" \
   -profile=default \
   ca-csr.json | cfssljson -bare ./server/local/vault
 ```

@@ -51226,7 +51226,7 @@ metadata:
 spec:
   dnsNames:
   - cass-operator-webhook-service.k8ssandra-operator.svc
-  - cass-operator-webhook-service.k8ssandra-operator.svc.cluster.local
+  - cass-operator-webhook-service.k8ssandra-operator.svc.geplaenkel.io
   issuerRef:
     kind: Issuer
     name: cass-operator-selfsigned-issuer
@@ -51240,7 +51240,7 @@ metadata:
 spec:
   dnsNames:
   - k8ssandra-operator-webhook-service.k8ssandra-operator.svc
-  - k8ssandra-operator-webhook-service.k8ssandra-operator.svc.cluster.local
+  - k8ssandra-operator-webhook-service.k8ssandra-operator.svc.geplaenkel.io
   issuerRef:
     kind: Issuer
     name: k8ssandra-operator-selfsigned-issuer

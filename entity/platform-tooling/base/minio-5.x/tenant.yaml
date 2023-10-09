@@ -1,0 +1,96 @@
+apiVersion: minio.min.io/v2
+kind: Tenant
+metadata:
+  creationTimestamp: null
+  name: minio
+  namespace: minio
+scheduler:
+  name: ""
+spec:
+  certConfig:
+    commonName: '*.minio-hl.minio.svc.geplaenkel.io'
+    dnsNames:
+    - minio-ss-0-{0...3}.minio-hl.minio.svc.geplaenkel.io
+    organizationName:
+    - system:nodes
+  configuration:
+    name: minio-env-configuration
+  exposeServices: {}
+  features:
+    enableSFTP: false
+  image: RELEASE.2023-09-23T03-47-50Z
+  imagePullPolicy: IfNotPresent
+  imagePullSecret: {}
+  kes:
+    image: minio/kes:2023-08-19T17-27-47Z
+    imagePullPolicy: IfNotPresent
+    kesSecret:
+      name: minio-kes-secret
+    keyName: my-minio-key
+    labels:
+      app: minio-kes
+    replicas: 2
+    resources: {}
+  mountPath: /export
+  podManagementPolicy: Parallel
+  pools:
+  - affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: v1.min.io/tenant
+              operator: In
+              values:
+              - minio
+          topologyKey: kubernetes.io/hostname
+    name: ss-0
+    resources: {}
+    servers: 4
+    volumeClaimTemplate:
+      apiVersion: v1
+      kind: persistentvolumeclaims
+      metadata:
+        creationTimestamp: null
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Ti
+        storageClassName: warm
+      status: {}
+    volumesPerServer: 4
+  requestAutoCert: true
+  serviceAccountName: minio-sa
+  users:
+  - name: minio-user-1
+status:
+  availableReplicas: 0
+  certificates: {}
+  currentState: ""
+  pools: null
+  revision: 0
+  syncVersion: ""
+  usage: {}
+
+---
+apiVersion: v1
+data:
+  config.env: ZXhwb3J0IE1JTklPX1JPT1RfVVNFUj0iNlJaOFowR0xCQ0VBVk5LV1lMMEYiCmV4cG9ydCBNSU5JT19ST09UX1BBU1NXT1JEPSJXb1hrakptRXJENTBpdVFXcGRoRWd1TndyZ2thYWZYc0M4RTZSWXlLIgo=
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: minio-env-configuration
+  namespace: minio
+
+---
+apiVersion: v1
+data:
+  CONSOLE_ACCESS_KEY: SDNSVTgzQkdQSFRFNlFJRlYxV1Q=
+  CONSOLE_SECRET_KEY: QklvS0JUWU1FSFZ4V25QSFNkcFg4cGNGUkxOcldPNEIwR0U5VktKUA==
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: minio-user-1
+  namespace: minio
