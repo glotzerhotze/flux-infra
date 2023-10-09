@@ -114,8 +114,8 @@ server:
   ha:
     enabled: true
     replicas: 3
-    apiAddr: https://vault-active.vault.svc.geplaenkel.io:8200
-    clusteraddr: https://vault-internal.vault.svc.geplaenkel.io:8201
+    apiAddr: null
+    clusteraddr: null
 
     raft:
       enabled: true

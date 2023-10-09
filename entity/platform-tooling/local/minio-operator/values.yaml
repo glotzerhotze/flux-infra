@@ -6,7 +6,7 @@ operator:
     - name: MINIO_OPERATOR_TLS_ENABLE
       value: "on"
     - name: CLUSTER_DOMAIN
-      value: "geplaenkel.io"
+      value: "cluster.local"
   #image:
   #  repository: minio/operator
   #  tag: v4.4.28

@@ -8,9 +8,9 @@ scheduler:
   name: ""
 spec:
   certConfig:
-    commonName: '*.minio-hl.minio.svc.geplaenkel.io'
+    commonName: '*.minio-hl.minio.svc.cluster.local'
     dnsNames:
-    - minio-ss-0-{0...3}.minio-hl.minio.svc.geplaenkel.io
+    - minio-ss-0-{0...3}.minio-hl.minio.svc.cluster.local
     organizationName:
     - system:nodes
   configuration:
