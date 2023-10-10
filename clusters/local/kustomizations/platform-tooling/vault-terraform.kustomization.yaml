@@ -10,6 +10,8 @@ spec:
   prune: true
   wait: true
   timeout: 3m
+  dependsOn:
+  - name: vault
   sourceRef:
     kind: GitRepository
     name: flux-system

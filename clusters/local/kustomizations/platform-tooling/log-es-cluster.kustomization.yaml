@@ -8,6 +8,8 @@ spec:
   interval: 5m0s
   path: ./entity/platform-tooling/local/log-es-cluster
   prune: true
+  dependsOn:
+  - name: eck-operator
   sourceRef:
     kind: GitRepository
     name: flux-system
