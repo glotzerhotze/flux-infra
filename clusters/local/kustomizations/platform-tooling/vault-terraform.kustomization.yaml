@@ -12,6 +12,7 @@ spec:
   timeout: 3m
   dependsOn:
   - name: vault
+  - name: ww-tf-controller
   sourceRef:
     kind: GitRepository
     name: flux-system

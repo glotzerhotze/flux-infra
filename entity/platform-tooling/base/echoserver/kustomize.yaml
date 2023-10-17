@@ -1,0 +1,9 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- echoserver.dp.yaml
+- echoserver.ing.yaml
+- echoserver.ns.yaml
+- echoserver.svc.yaml
+commonLabels:
+  owner: platform-tooling
