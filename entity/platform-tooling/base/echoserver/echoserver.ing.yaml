@@ -6,8 +6,10 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: cilium
 spec:
+  ingressClassName: cilium
   rules:
-  - http:
+  - host: echoserver.local.klessen.cloud
+    http:
       paths:
       - path: /
         pathType: Prefix
@@ -16,3 +18,7 @@ spec:
             name: echoserver
             port:
               number: 80
+  tls:
+    - hosts:
+      - echoserver.local.klessen.cloud
+      secretName: echoserver-tls
