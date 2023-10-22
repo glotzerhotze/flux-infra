@@ -2,6 +2,7 @@ apiVersion: "cilium.io/v2alpha1"
 kind: CiliumLoadBalancerIPPool
 metadata:
   name: "echoserver"
+  namespace: "echoserver"
 spec:
   cidrs:
   - cidr: "172.18.0.123/32"
