@@ -84,10 +84,10 @@ server:
 
   service:
     enabled: true
-    type: LoadBalancer
-    #clusterIP: None
+    #type: LoadBalancer
+    #loadBalancerIP: "172.18.0.112"
+    clusterIP: None
     annotations: {}
-    loadBalancerIP: "172.18.0.112"
 
   # This configures the Vault Statefulset to create a PVC for audit logs.
   # See https://www.vaultproject.io/docs/audit/index.html to know more

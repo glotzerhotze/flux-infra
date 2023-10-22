@@ -14,6 +14,6 @@ secretGenerator:
 configMapGenerator:
   - name: values
     files:
-      - values.yaml
+      - values-0.25.0.yaml
 generatorOptions:
   disableNameSuffixHash: true

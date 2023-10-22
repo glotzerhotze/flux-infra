@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- minio.ns.yaml
+- ns-admin.rbac.yaml
+- tenant.yaml
+secretGenerator:
+- files:
+  - secret/ca/vault-ca.crt
+  name: vault-ca-cert
+  namespace: minio
+- files:
+  - server-config.yaml
+  name: minio-kes-config
+  namespace: minio
+- files:
+  - config.env
+  name: minio-env-configuration
+  namespace: minio
+- literals:
+  - CONSOLE_ACCESS_KEY="H3RU83BGPHTE6QIFV1WT"
+  - CONSOLE_SECRET_KEY="BIoKBTYMEHVxWnPHSdpX8pcFRLNrWO4B0GE9VKJP"
+  name: minio-user-1
+  namespace: minio
+generatorOptions:
+  disableNameSuffixHash: true
+labels:
+- includeSelectors: true
+  pairs:
+    owner: platform-tooling
+## patches:
+## - path: tenant.kes.yaml
+## - path: tenant.pools.yaml
+## - path: tenant.prometheus.yaml
+## - path: tenant.log.yaml

@@ -5,4 +5,4 @@ metadata:
 spec:
   chart:
     spec:
-      version: 'v5.0.9'
+      version: 'v5.0.10'
