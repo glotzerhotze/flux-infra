@@ -5,4 +5,4 @@ metadata:
   namespace: "echoserver"
 spec:
   cidrs:
-  - cidr: "172.18.0.64/25"
+  - cidr: "172.18.0.64/31"
