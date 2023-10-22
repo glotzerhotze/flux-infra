@@ -85,9 +85,6 @@ spec:
       runAsGroup: 1000
       runAsNonRoot: true
       fsGroup: 1000
-      capabilities:
-        add:
-        - IPC_LOCK
   mountPath: /export
   podManagementPolicy: Parallel
   pools:
