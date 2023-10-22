@@ -5,5 +5,6 @@ resources:
   - ../../base/echoserver
   - echoserver.ing.yaml
   - echoserver.cert.yaml
+  - echoserver.ippool.yaml
 commonLabels:
   owner: platform-tooling
