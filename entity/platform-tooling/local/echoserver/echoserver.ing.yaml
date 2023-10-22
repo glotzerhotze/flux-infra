@@ -3,8 +3,6 @@ kind: Ingress
 metadata:
   name: echoserver
   namespace: echoserver
-  annotations:
-    kubernetes.io/ingress.class: cilium
 spec:
   ingressClassName: cilium
   rules:
