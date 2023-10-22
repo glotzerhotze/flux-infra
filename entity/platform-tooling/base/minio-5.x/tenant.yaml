@@ -30,11 +30,11 @@ spec:
     ## Enable S3 specific features such as Bucket DNS which would allow `buckets` to be
     ## accessible as DNS entries of form `<bucketname>.minio.namespace.svc.cluster.local`
     ## This feature is turned off by default
-    bucketDNS: true
+    bucketDNS: false
     ## Specify a list of domains used to access MinIO and Console
     ## TODO: create patch
     domains:
-      - minio.local.klessen.cloud
+      - "minio.local.klessen.cloud"
     ## Enable access via SFTP
     ## This feature is turned off by default
     # enableSFTP: false
