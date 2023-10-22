@@ -593,10 +593,10 @@ server:
   # via toYaml rather than pre-processed like the extraVolumes value.
   # The purpose is to make it easy to share volumes between containers.
   volumeMounts:
-  - mountPath: /vault/userconfig
+  - mountPath: /vault/userconfig/tls-server
     name: tls-server
     readOnly: true
-  - mountPath: /vault/userconfig
+  - mountPath: /vault/userconfig/tls-ca
     name: tls-ca
     readOnly: true
   #   - mountPath: /usr/local/libexec/vault
