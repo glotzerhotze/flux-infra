@@ -107,8 +107,6 @@ spec:
     volumeClaimTemplate:
       apiVersion: v1
       kind: persistentvolumeclaims
-      metadata:
-        creationTimestamp: null
       spec:
         accessModes:
         - ReadWriteOnce
