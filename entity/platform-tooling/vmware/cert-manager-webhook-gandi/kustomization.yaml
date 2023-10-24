@@ -4,7 +4,7 @@ resources:
   - ../../base/cert-manager
   - release.yaml
   - letsencrypt-prod.c-issuer.yaml
-  - klessen-cloud.cert.yaml
+  # - klessen-cloud.cert.yaml
 namespace: cert-manager
 commonLabels:
   owner: platform-tooling
