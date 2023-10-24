@@ -7,6 +7,6 @@ spec:
   - api.vmware.klessen.cloud
   - '*.vmware.klessen.cloud'
   issuerRef:
-    name: letsencrypt
+    name: letsencrypt-prod
     kind: ClusterIssuer
   secretName: klessen-cloud-tls
