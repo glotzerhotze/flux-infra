@@ -9,7 +9,6 @@ spec:
   interval: 5m0s
   path: ./entity/platform-tooling/local/eck-operator
   prune: true
-  suspend: false
   sourceRef:
     kind: GitRepository
     name: flux-system
