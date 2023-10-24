@@ -6,7 +6,7 @@ metadata:
 spec:
   ingressClassName: cilium
   rules:
-  - host: echoserver.local.klessen.cloud
+  - host: echoserver.vmware.klessen.cloud
     http:
       paths:
       - path: /
@@ -18,5 +18,5 @@ spec:
               number: 80
   tls:
     - hosts:
-      - echoserver.local.klessen.cloud
+      - echoserver.vmware.klessen.cloud
       secretName: echoserver-tls

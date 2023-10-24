@@ -11,7 +11,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./entity/platform-tooling/local/rabbitmq-cluster-operator
+  path: ./entity/platform-tooling/vmware/rabbitmq-cluster-operator
   prune: true
   wait: true
   timeout: 3m

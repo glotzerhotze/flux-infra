@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - ../../base/cert-manager
   - release.yaml
-  - letsencrypt.c-issuer.yaml
+  - letsencrypt-prod.c-issuer.yaml
   - klessen-cloud.cert.yaml
 namespace: cert-manager
 commonLabels:

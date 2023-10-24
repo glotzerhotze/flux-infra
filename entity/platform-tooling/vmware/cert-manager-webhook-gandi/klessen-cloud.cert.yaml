@@ -4,8 +4,8 @@ metadata:
   name: klessen-cloud
 spec:
   dnsNames:
-  - klessen.cloud
-  - '*.klessen.cloud'
+  - api.vmware.klessen.cloud
+  - '*.vmware.klessen.cloud'
   issuerRef:
     name: letsencrypt
     kind: ClusterIssuer

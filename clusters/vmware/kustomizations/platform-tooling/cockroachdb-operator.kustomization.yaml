@@ -11,7 +11,7 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./entity/platform-tooling/local/cockroachdb-operator
+  path: ./entity/platform-tooling/vmware/cockroachdb-operator
   prune: true
   wait: true
   timeout: 3m

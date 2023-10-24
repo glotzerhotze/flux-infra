@@ -5,13 +5,13 @@ metadata:
   name: cert-manager-webhook-gandi
   namespace: flux-system
 spec:
-  suspend: true
+  suspend: false
   interval: 5m0s
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./entity/platform-tooling/local/cert-manager-webhook-gandi
+  path: ./entity/platform-tooling/vmware/cert-manager-webhook-gandi
   prune: true
   wait: true
   timeout: 3m

@@ -5,8 +5,8 @@ metadata:
   namespace: echoserver
 spec:
   dnsNames:
-  - echoserver.local.klessen.cloud
+  - echoserver.vmware.klessen.cloud
   issuerRef:
-    name: letsencrypt
+    name: letsencrypt-prod
     kind: ClusterIssuer
   secretName: echoserver-tls

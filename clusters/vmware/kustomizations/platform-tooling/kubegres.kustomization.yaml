@@ -7,7 +7,7 @@ metadata:
 spec:
   suspend: true
   interval: 5m0s
-  path: ./entity/platform-tooling/local/kubegres
+  path: ./entity/platform-tooling/vmware/kubegres
   prune: true
   sourceRef:
     kind: GitRepository
