@@ -1,0 +1,22 @@
+# There are pre-existing labels so append instead a new key
+# The special encoding is used to encode '/'
+## init-container setup for CA certificate trust chain
+- op: add
+  path: /spec/ports/-
+  value:
+    name: gelfhttp
+    port: 12221
+    targetPort: gelfhttp
+
+- op: replace
+  path: /spec/selector
+  value:
+    academy: shared
+    service: graylog
+
+## add labels
+- op: replace
+  path: /metadata/labels
+  value:
+    academy: shared
+    service: graylog

@@ -1,0 +1,31 @@
+- op: replace
+  path: /spec/pools/0/servers
+  value: 1
+
+- op: replace
+  path: /spec/pools/0/volumesPerServer
+  value: 4
+
+- op: replace
+  path: /spec/pools/0/resources
+  value:
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
+
+- op: replace
+  path: /spec/pools/0/volumeClaimTemplate/spec/resources/requests/storage
+  value: 1G
+
+- op: replace
+  path: /spec/pools/0/volumeClaimTemplate/spec/storageClassName
+  value: standard
+
+- op: add
+  path: /spec/pools/0/tolerations
+  value:
+    - key: klessen.cloud/minio
+      operator: Exists
+
+- op: remove
+  path: /spec/pools/0/affinity/nodeAffinity

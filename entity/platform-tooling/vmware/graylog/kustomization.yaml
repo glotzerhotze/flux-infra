@@ -1,0 +1,43 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/graylog
+  - academy-admin.rbac.yaml
+  - graylog-external.svc.yaml
+  - graylog-internal.svc.yaml
+  - graylog-mongodb.pvc.yaml
+  - graylog-plugins.pvc.yaml
+  - graylog-journal.pvc.yaml
+  - graylog-mongodb.pv.yaml
+  - graylog-plugins.pv.yaml
+  - graylog-journal.pv.yaml
+  - graylog.cm.yaml
+namespace: log
+commonLabels:
+  app: graylog
+  owner: platform-tooling
+secretGenerator:
+  - name: log-es-graylog-user
+    literals:
+      - users=graylog-user:$2a$10$tI020wb7iJAmaUOWNChqWebUXjSHAs9k61xwlEsEi/lRlnrZwClhG
+      - users_roles=superuser:graylog-user
+  - name: graylog
+    literals:
+      - password.graylog-user=Y0vVR9BmLQCMxjcS
+      - password.secret=VDF6dob1kRvj0qAWBmh8ORtLiwfWKCtCy03tXtx5Ez2tJ48llNRrqgoeW4LUuiezN2z52UXC6qAVPCvBdOAnqbIXwlabMrKB
+      - svc.elastic=https://elastic:u27EgU1Ql9B7V72HbV4M2xU1@log-es-http:9200
+      - svc.graylog-user=https://graylog-user:Y0vVR9BmLQCMxjcS@log-es-http:9200
+generatorOptions:
+  disableNameSuffixHash: true
+patchesJson6902:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: graylog
+    path: change_graylog_deployment.yaml
+  - target:
+      version: v1
+      kind: Service
+      name: graylog
+    path: change_graylog_service.yaml

@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/cert-manager
+  - release.yaml
+  - letsencrypt.c-issuer.yaml
+  - klessen-cloud.cert.yaml
+namespace: cert-manager
+commonLabels:
+  owner: platform-tooling
+configMapGenerator:
+  - name: values
+    files:
+      - values.yaml

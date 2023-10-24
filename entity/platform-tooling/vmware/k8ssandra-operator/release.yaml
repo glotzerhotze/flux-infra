@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: k8ssandra-operator
+spec:
+  interval: 72h
+  targetNamespace: k8ssandra-operator
+  chart:
+    spec:
+      chart: k8ssandra-operator
+      version: '1.8.1'
+      sourceRef:
+        kind: HelmRepository
+        name: k8ssandra-operator
+        namespace: flux-system
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  valuesFrom:
+    - kind: ConfigMap
+      name: values

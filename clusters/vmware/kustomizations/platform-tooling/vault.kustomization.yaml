@@ -1,0 +1,24 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: vault
+  namespace: flux-system
+spec:
+  suspend: true
+  interval: 5m0s
+  path: ./entity/platform-tooling/local/vault
+  prune: true
+  wait: true
+  timeout: 3m
+  #dependsOn:
+  #  - name: bootstrap-ns-vault
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: StatefulSet
+      name: vault
+      namespace: vault

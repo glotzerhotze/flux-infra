@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: graylog-journal
+  namespace: log
+  labels:
+    academy: shared
+    service: graylog
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: local-storage
+  volumeMode: Filesystem
+  volumeName: graylog-journal-mt17

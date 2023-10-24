@@ -1,0 +1,6 @@
+## This will replace all env-vars - so add additional ones here
+- op: add
+  path: /spec/nodeSets/0/podTemplate/spec/containers/0/env
+  value:
+    - name: ES_JAVA_OPTS
+      value: "-Xms512m -Xmx512m"

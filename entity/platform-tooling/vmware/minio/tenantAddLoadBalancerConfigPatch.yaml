@@ -1,0 +1,7 @@
+- op: add
+  path: /spec/loadBalancerIP
+  value: "172.18.0.103"
+
+- op: replace
+  path: /spec/externalTrafficPolicy
+  value: Local

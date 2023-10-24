@@ -1,0 +1,165 @@
+# There are pre-existing labels so append instead a new key
+# The special encoding is used to encode '/'
+## init-container setup for CA certificate trust chain
+- op: add
+  path: /spec/template/spec/initContainers/0/image
+  value: graylog/graylog:3.3.15-1
+- op: add
+  path: /spec/template/spec/initContainers/0/command
+  value: [ 'sh', '-c', 'cp /opt/java/openjdk/lib/security/cacerts /keystore/cacerts && chmod 664 /keystore/cacerts && keytool -importcert -keystore /keystore/cacerts -storepass changeit -alias log-es-http -file /etc/ssl/certs/graylog-es-ca-cert.pem -noprompt' ]
+
+## actual workload configuration
+- op: add
+  path: /spec/template/spec/containers/0/image
+  value: mongo:4.2
+- op: add
+  path: /spec/template/spec/containers/1/image
+  value: graylog/graylog:3.3.15-1
+
+## add labels
+- op: replace
+  path: /metadata/labels
+  value:
+    academy: shared
+    service: graylog
+- op: replace
+  path: /spec/selector/matchLabels
+  value:
+    academy: shared
+    service: graylog
+- op: replace
+  path: /spec/template/metadata/labels
+  value:
+    academy: shared
+    service: graylog
+
+## additional ports
+- op: replace
+  path: /spec/template/spec/containers/1/ports
+  value:
+    - containerPort: 9000
+      name: web
+      protocol: TCP
+    - containerPort: 12900
+      name: api
+      protocol: TCP
+    - containerPort: 12201
+      name: gelf
+      protocol: UDP
+    - containerPort: 12201
+      name: gelftcp
+      protocol: TCP
+    - containerPort: 5514
+      name: syslog
+      protocol: TCP
+    - containerPort: 12221
+      name: gelfhttp
+      protocol: TCP
+
+## add environment variables for configuration
+- op: replace
+  path: /spec/template/spec/containers/1/env
+  value:
+    - name: GRAYLOG_USER_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: password.graylog-user
+          name: graylog
+    - name: GRAYLOG_ELASTIC_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          key: elastic
+          name: log-es-elastic-user
+    - name: GRAYLOG_SECURITY_INDEX
+      valueFrom:
+        configMapKeyRef:
+          key: security-index.json
+          name: graylog
+    - name: GRAYLOG_SECURITY_INDEX_PAYLOAD
+      valueFrom:
+        configMapKeyRef:
+          key: graylog-permissions.json
+          name: graylog
+    - name: AUTO_POD_IP
+      valueFrom:
+        fieldRef:
+          apiVersion: v1
+          fieldPath: status.podIP
+    - name: GRAYLOG_NODE_ID
+      value: 189b68b0-2b49-4917-9d91-08038b26ac73root@f4401948d0c4
+    - name: GRAYLOG_PASSWORD_SECRET
+      valueFrom:
+        secretKeyRef:
+          key: password.secret
+          name: graylog
+    - name: GRAYLOG_ROOT_PASSWORD_SHA2
+      value: deee88c00a3f02b2a694ac91e19fdb21d9f356dd33e6a5b5f9e88b9cf4deee00
+    - name: GRAYLOG_HTTP_EXTERNAL_URI
+      value: http://log.prod.klessen.cloud/
+    - name: GRAYLOG_ROTATION_STRATEGY
+      value: time
+    - name: GRAYLOG_ELASTICSEARCH_MAX_NUMBER_OF_INDICES
+      value: "31"
+    - name: GRAYLOG_ELASTICSEARCH_SHARDS
+      value: "2"
+    - name: GRAYLOG_RETENTION_STRATEGY
+      value: delete
+    - name: GRAYLOG_MONGODB_URI
+      value: mongodb://127.0.0.1:27017/graylog
+    - name: GRAYLOG_ELASTICSEARCH_HOSTS
+      valueFrom:
+        secretKeyRef:
+          key: svc.elastic
+          name: graylog
+    - name: GRAYLOG_SERVER_JAVA_OPTS
+      value: -Djavax.net.ssl.trustStore=/keystore/cacerts -XX:+UnlockExperimentalVMOptions
+        -XX:+UseCGroupMemoryLimitForHeap -XX:NewRatio=1 -XX:MaxMetaspaceSize=256m
+        -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled
+        -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow -Djava.library.path=${GRAYLOGCTL_DIR}/../lib/sigar
+        -Xms2g -Xmx2g -server
+    - name: GRAYLOG_ELASTICSEARCH_CLUSTER_NAME
+      value: graylog
+
+- op: add
+  path: /spec/template/spec/containers/1/resources
+  value:
+    requests:
+      memory: "4Gi"
+      cpu: "1"
+    limits:
+      memory: "4Gi"
+      cpu: "2"
+
+- op: add
+  path: /spec/template/spec/containers/0/resources
+  value:
+    limits:
+      cpu: 750m
+      memory: 128Mi
+    requests:
+      cpu: 250m
+      memory: 128Mi
+
+- op: add
+  path: /spec/template/spec/containers/0/terminationMessagePath
+  value: /dev/termination-log
+
+- op: add
+  path: /spec/template/spec/containers/0/terminationMessagePolicy
+  value: File
+
+- op: add
+  path: /spec/template/spec/containers/1/terminationMessagePath
+  value: /dev/termination-log
+
+- op: add
+  path: /spec/template/spec/containers/1/terminationMessagePolicy
+  value: File
+
+- op: add
+  path: /spec/template/spec/initContainers/0/terminationMessagePath
+  value: /dev/termination-log
+
+- op: add
+  path: /spec/template/spec/initContainers/0/terminationMessagePolicy
+  value: File

@@ -1,0 +1,6 @@
+global:
+  clusterScoped: true
+  cleaner:
+    serviceAccount: k8ssandra-operator
+  client:
+    serviceAccount: k8ssandra-operator

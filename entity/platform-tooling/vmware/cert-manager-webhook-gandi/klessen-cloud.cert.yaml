@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: klessen-cloud
+spec:
+  dnsNames:
+  - klessen.cloud
+  - '*.klessen.cloud'
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  secretName: klessen-cloud-tls

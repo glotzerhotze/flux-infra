@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: graylog-internal
+  namespace: log
+  labels:
+    academy: shared
+    service: graylog
+spec:
+  type: ClusterIP
+  selector:
+    academy: shared
+    service: graylog
+  ports:
+  - name: api
+    port: 12900
+    protocol: TCP
+    targetPort: api
+  - name: gelf
+    port: 12201
+    protocol: UDP
+    targetPort: gelf
+  - name: gelftcp
+    port: 12201
+    protocol: TCP
+    targetPort: gelftcp
+  - name: gelfhttp
+    port: 12221
+    protocol: TCP
+    targetPort: gelfhttp
+  - name: syslog
+    port: 12591
+    protocol: UDP
+    targetPort: syslog

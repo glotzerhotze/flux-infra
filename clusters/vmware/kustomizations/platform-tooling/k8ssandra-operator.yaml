@@ -1,0 +1,22 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: k8ssandra-operator
+  namespace: flux-system
+spec:
+  suspend: true
+  interval: 5m0s
+  dependsOn:
+    - name: cert-manager
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./entity/platform-tooling/local/k8ssandra-operator
+  prune: true
+  wait: true
+  timeout: 3m
+#  healthChecks:
+#    - kind:
+#      name:

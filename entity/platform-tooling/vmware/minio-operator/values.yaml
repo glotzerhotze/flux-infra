@@ -1,0 +1,105 @@
+# Default values for minio-operator.
+
+operator:
+  ## Setup environment variables for the Operator
+  env:
+    - name: MINIO_OPERATOR_TLS_ENABLE
+      value: "on"
+    - name: CLUSTER_DOMAIN
+      value: "cluster.local"
+  #image:
+  #  repository: minio/operator
+  #  tag: v4.4.28
+  #  pullPolicy: IfNotPresent
+  imagePullSecrets: [ ]
+  initcontainers: [ ]
+  replicaCount: 1
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    runAsNonRoot: true
+    fsGroup: 1000
+  #nodeSelector:
+  #  klessen.cloud/operator-home: "true"
+  ## below part will be added twice if uncommented
+  ## left for future reference
+  #affinity:
+  #  podAntiAffinity:
+  #    requiredDuringSchedulingIgnoredDuringExecution:
+  #      - labelSelector:
+  #          matchExpressions:
+  #            - key: name
+  #              operator: In
+  #              values:
+  #                - minio-operator
+  #        topologyKey: kubernetes.io/hostname
+  tolerations:
+    - operator: Exists
+  #topologySpreadConstraints:
+  #  - maxSkew: 1
+  #    #minDomains: <integer> # optional; beta since v1.25
+  #    topologyKey: klessen.cloud/operator-home
+  #    whenUnsatisfiable: DoNotSchedule
+  #    labelSelector:
+  #      matchLabels:
+  #        app.kubernetes.io/name: operator
+  #        app.kubernetes.io/instance: minio
+  #    #matchLabelKeys: <list> # optional; alpha since v1.25
+  #    #nodeAffinityPolicy: [ Honor|Ignore ] # optional; alpha since v1.25
+  #    #nodeTaintsPolicy: [ Honor|Ignore ] # optional; alpha since v1.25
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+      ephemeral-storage: 500Mi
+
+console:
+  #image:
+  #  repository: minio/console
+  #  tag: v0.19.4
+  #  pullPolicy: IfNotPresent
+  imagePullSecrets: [ ]
+  initcontainers: [ ]
+  replicaCount: 1
+  #nodeSelector:
+  #  klessen.cloud/operator-home: "true"
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: name
+                operator: In
+                values:
+                  - console
+          topologyKey: kubernetes.io/hostname
+  tolerations:
+    - operator: Exists
+  #topologySpreadConstraints:
+  #  - maxSkew: 1
+  #    #minDomains: <integer> # optional; beta since v1.25
+  #    topologyKey: klessen.cloud/operator-home
+  #    whenUnsatisfiable: DoNotSchedule
+  #    labelSelector:
+  #      matchLabels:
+  #        app.kubernetes.io/name: console
+  #        app.kubernetes.io/instance: minio
+  #    #matchLabelKeys: <list> # optional; alpha since v1.25
+  #    #nodeAffinityPolicy: [ Honor|Ignore ] # optional; alpha since v1.25
+  #    #nodeTaintsPolicy: [ Honor|Ignore ] # optional; alpha since v1.25
+  resources: { }
+  securityContext:
+    runAsUser: 1000
+    runAsNonRoot: true
+  ingress:
+    enabled: true
+    ingressClassName: ""
+    labels: { }
+    annotations:
+      kubernetes.io/ingress.class: "cilium"
+    tls: [ ]
+    host: minio-console.local.klessen.cloud
+    path: /
+    pathType: Prefix
+  volumes: [ ]
+  volumeMounts: [ ]

@@ -1,0 +1,5 @@
+- op: replace
+  path: /spec/exposeServices
+  value:
+    console: false
+    minio: false

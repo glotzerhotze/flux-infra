@@ -1,0 +1,8 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: cert-manager-webhook-gandi
+  namespace: flux-system
+spec:
+  interval: 72h
+  url: https://bwolf.github.io/cert-manager-webhook-gandi

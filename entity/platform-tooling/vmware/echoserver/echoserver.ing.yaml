@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: echoserver
+  namespace: echoserver
+spec:
+  ingressClassName: cilium
+  rules:
+  - host: echoserver.local.klessen.cloud
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: echoserver
+            port:
+              number: 80
+  tls:
+    - hosts:
+      - echoserver.local.klessen.cloud
+      secretName: echoserver-tls
