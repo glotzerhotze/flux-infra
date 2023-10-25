@@ -5,7 +5,7 @@ metadata:
   name: echoserver
   namespace: flux-system
 spec:
-  suspend: false
+
   interval: 5m0s
   dependsOn:
   - name: cert-manager-webhook-gandi
