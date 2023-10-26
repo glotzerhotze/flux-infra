@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-dns-gandi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: external-dns-gandi
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: external-dns
+    spec:
+      serviceAccountName: external-dns
+      containers:
+      - name: external-dns
+        image: registry.k8s.io/external-dns/external-dns:v0.13.5
+        args:
+          - --source=service # or ingress or both
+          - --provider=pdns
+          - --pdns-server="http://10.255.250.254:8081"
+          - --pdns-api-key=$PDNS_KEY
+          - --txt-owner-id=vmware
+          - --domain-filter=klessen.cloud
+          - --log-level=debug
+          - --interval=30s
+        env:
+          - name: PDNS_KEY
+            valueFrom:
+              secretKeyRef:
+                key: api-token
+               name: pdns-credentials
