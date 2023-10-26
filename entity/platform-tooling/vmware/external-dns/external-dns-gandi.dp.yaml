@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: external-dns
+        app: external-dns-gandi
     spec:
       serviceAccountName: external-dns
       containers:

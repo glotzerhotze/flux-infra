@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: external-dns-gandi
+  name: external-dns-pdns
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: external-dns-gandi
+      app: external-dns-pdns
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: external-dns
+        app: external-dns-pdns
     spec:
       serviceAccountName: external-dns
       containers:
@@ -31,5 +31,5 @@ spec:
           - name: PDNS_KEY
             valueFrom:
               secretKeyRef:
-                key: api-token
+               key: api-token
                name: pdns-credentials
