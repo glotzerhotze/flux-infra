@@ -17,3 +17,8 @@ spec:
   timeout: 3m
   dependsOn:
   - name: cert-manager
+  healthChecks:
+  - apiVersion: apps/v1
+    kind: Deployment
+    name: cert-manager-webhook-gandi
+    namespace: cert-manager

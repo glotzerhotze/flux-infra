@@ -14,3 +14,12 @@ spec:
   prune: true
   wait: true
   timeout: 3m
+  healthChecks:
+  - apiVersion: apps/v1
+    kind: Deployment
+    name: external-dns-gandi
+    namespace: kube-system
+  - apiVersion: apps/v1
+    kind: Deployment
+    name: external-dns-pdns
+    namespace: kube-system
