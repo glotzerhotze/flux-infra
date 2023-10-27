@@ -4,5 +4,5 @@ metadata:
   name: vault
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 72h
   url: https://helm.releases.hashicorp.com

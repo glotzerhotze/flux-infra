@@ -4,5 +4,5 @@ metadata:
   name: minio-operator
   namespace: flux-system
 spec:
-  interval: 5m
+  interval: 72h
   url: https://operator.min.io/
