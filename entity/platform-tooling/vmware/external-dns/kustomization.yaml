@@ -4,6 +4,7 @@ namespace: kube-system
 resources:
   - external-dns-gandi.dp.yaml
   - external-dns-pdns.dp.yaml
+  - ../../base/external-dns
 commonLabels:
   owner: platform-tooling
 configMapGenerator:
