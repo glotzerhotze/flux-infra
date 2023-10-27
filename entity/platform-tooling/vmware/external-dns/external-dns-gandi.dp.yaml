@@ -28,3 +28,9 @@ spec:
             secretKeyRef:
               key: api-token
               name: gandi-credentials
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65534
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: [ "ALL" ]

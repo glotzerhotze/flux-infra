@@ -38,3 +38,9 @@ spec:
               configMapKeyRef:
                 key: server
                 name: pdns-connection
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 65534
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop: [ "ALL" ]
