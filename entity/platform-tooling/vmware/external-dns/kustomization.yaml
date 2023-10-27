@@ -4,6 +4,8 @@ namespace: kube-system
 resources:
   - external-dns-gandi.dp.yaml
   - external-dns-pdns.dp.yaml
+  - external-dns-pihole-1.dp.yaml
+  - external-dns-pihole-2.dp.yaml
   - ../../base/external-dns
 commonLabels:
   owner: platform-tooling
@@ -11,3 +13,9 @@ configMapGenerator:
   - name: pdns-connection
     literals:
     - server=http://10.255.250.252
+  - name: pihole-1-connection
+    literals:
+    - server=http://192.168.23.3
+  - name: pihole-2-connection
+    literals:
+    - server=http://192.168.23.33
