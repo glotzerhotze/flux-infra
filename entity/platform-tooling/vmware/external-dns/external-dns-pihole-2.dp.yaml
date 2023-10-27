@@ -29,7 +29,7 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: server
-              name: pihole-2-credentials
+              name: pihole-2-connection
         args:
         - --source=crd
         - --source=node
