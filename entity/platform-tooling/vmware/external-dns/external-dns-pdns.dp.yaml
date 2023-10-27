@@ -21,8 +21,8 @@ spec:
         args:
           - --source=service
           - --provider=pdns
-          - --pdns-server="http://10.255.250.252:8081"
-          - --pdns-api-key=$PDNS_KEY
+          - --pdns-server=http://10.255.250.252
+          - --pdns-api-key=$(PDNS_KEY)
           - --txt-owner-id=vmware
           - --domain-filter=klessen.cloud
           - --log-level=debug
@@ -33,3 +33,8 @@ spec:
               secretKeyRef:
                key: api-token
                name: pdns-credentials
+          - name: PDNS_SERVER
+            valueFrom:
+              configMapKeyRef:
+                key: server
+                name: pdns-connection

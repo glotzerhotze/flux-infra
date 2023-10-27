@@ -4,8 +4,9 @@ namespace: kube-system
 resources:
   - external-dns-gandi.dp.yaml
   - external-dns-pdns.dp.yaml
-  - external-dns.sa.yaml
-  - external-dns.cr.yaml
-  - external-dns.crb.yaml
 commonLabels:
   owner: platform-tooling
+configMapGenerator:
+  - name: pdns-connection
+    literals:
+    - server=http://10.255.250.252
