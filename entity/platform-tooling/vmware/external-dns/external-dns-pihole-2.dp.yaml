@@ -41,6 +41,7 @@ spec:
         # the policy to upsert-only so they do not get deleted.
         - --policy=upsert-only
         - --provider=pihole
+        - --log-level=debug
         # Change this to the actual address of your Pi-hole web server
       securityContext:
         fsGroup: 65534 # For ExternalDNS to be able to read Kubernetes token files
