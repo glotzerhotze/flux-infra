@@ -13,5 +13,5 @@ rules:
   resources: ["nodes"]
   verbs: ["list","watch"]
 - apiGroups: ["externaldns.k8s.io"]
-  resources: ["dnsendpoints"]
-  verbs: ["list","watch","get","update"]
+  resources: ["*"]
+  verbs: ["*"]
