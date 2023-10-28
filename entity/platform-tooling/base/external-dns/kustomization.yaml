@@ -5,3 +5,4 @@ resources:
   - external-dns.crb.yaml
   - external-dns.cr.yaml
   - external-dns.sa.yaml
+  - dnsendpoint.crd.yaml
