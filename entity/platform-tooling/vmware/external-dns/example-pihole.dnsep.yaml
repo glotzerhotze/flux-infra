@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
 spec:
   endpoints:
-  - dnsName: unf-01.backend.klessen.cloud
+  - dnsName: unf-01.klessen.cloud
     recordTTL: 180
     recordType: A
     targets:

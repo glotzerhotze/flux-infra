@@ -4,8 +4,8 @@ namespace: kube-system
 resources:
   - external-dns-gandi.dp.yaml
   - external-dns-pdns.dp.yaml
-  - external-dns-pihole-1.dp.yaml
-  - external-dns-pihole-2.dp.yaml
+  #- external-dns-pihole-1.dp.yaml
+  #- external-dns-pihole-2.dp.yaml
   - example-pihole.dnsep.yaml
   - ../../base/external-dns
 commonLabels:
