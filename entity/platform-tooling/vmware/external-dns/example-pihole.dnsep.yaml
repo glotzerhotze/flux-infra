@@ -1,7 +1,7 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: examplednsrecord
+  name: unf-01-backend-klessen-cloud-dnsrecord
   namespace: kube-system
 spec:
   endpoints:
@@ -11,6 +11,6 @@ spec:
     targets:
     - 192.168.23.3
     # Provider specific configurations are set like an annotation would on other sources
-    providerSpecific: {}
+    #providerSpecific:
     #- name: external-dns.alpha.kubernetes.io/cloudflare-proxied
     #  value: "true"
