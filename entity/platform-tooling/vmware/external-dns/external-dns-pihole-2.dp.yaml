@@ -20,12 +20,12 @@ spec:
         # If authentication is disabled and/or you didn't create
         # a secret, you can remove this block.
         env:
-        - name: PIHOLE_KEY
+        - name: EXTERNAL_DNS_PIHOLE_PASSWORD
           valueFrom:
             secretKeyRef:
               key: api-token
               name: pihole-2-credentials
-        - name: PIHOLE_SERVER
+        - name: EXTERNAL_DNS_PIHOLE_SERVER
           valueFrom:
             configMapKeyRef:
               key: server
