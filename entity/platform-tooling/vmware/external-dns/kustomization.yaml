@@ -16,7 +16,7 @@ configMapGenerator:
     - server=http://10.255.250.252
   - name: pihole-1-connection
     literals:
-    - server=http://192.168.23.3/admin
+    - server=http://192.168.23.3
   - name: pihole-2-connection
     literals:
     - server=http://192.168.23.33/admin
