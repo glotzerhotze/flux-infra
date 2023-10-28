@@ -20,6 +20,7 @@ spec:
         image: registry.k8s.io/external-dns/external-dns:v0.13.5
         args:
           - --source=service
+          - --source=crd
           - --provider=pdns
           - --pdns-server=http://10.255.250.252
           - --pdns-api-key=$(PDNS_KEY)

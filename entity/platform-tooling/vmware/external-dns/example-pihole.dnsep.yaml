@@ -11,6 +11,6 @@ spec:
     targets:
     - 192.168.23.3
     # Provider specific configurations are set like an annotation would on other sources
-    #providerSpecific:
-    #- name: external-dns.alpha.kubernetes.io/cloudflare-proxied
-    #  value: "true"
+    providerSpecific:
+    - name: external-dns.alpha.kubernetes.io/pihole
+      value: "true"
