@@ -1,16 +1,16 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: unf-01-backend-klessen-cloud-dnsrecord
+  name: dnsendpoint-klessen-cloud-dnsrecord
   namespace: kube-system
 spec:
   endpoints:
-  - dnsName: unf-01.klessen.cloud
+  - dnsName: dnsendpoint.klessen.cloud
     recordTTL: 180
     recordType: A
     targets:
     - 192.168.23.3
     # Provider specific configurations are set like an annotation would on other sources
-    providerSpecific:
-    - name: external-dns.alpha.kubernetes.io/pihole
-      value: "true"
+    #providerSpecific:
+    #- name: external-dns.alpha.kubernetes.io/pihole
+    #  value: "true"
