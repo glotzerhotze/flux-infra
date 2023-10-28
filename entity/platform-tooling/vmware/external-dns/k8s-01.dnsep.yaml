@@ -1,0 +1,12 @@
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: k8s-01-klessen-cloud-dnsrecord
+  namespace: kube-system
+spec:
+  endpoints:
+  - dnsName: k8s-01.klessen.cloud
+    recordTTL: 180
+    recordType: A
+    targets:
+    - 10.255.250.121
