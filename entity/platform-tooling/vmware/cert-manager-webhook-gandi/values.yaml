@@ -1,3 +1,7 @@
 features:
   apiPriorityAndFairness: true
 logLevel: 2
+# -- Gandi Secret API key
+# -- To not store it in plain text, use sops or similar.
+# -- The secret is not created if not set.
+gandiApiToken: "test1234"

@@ -5,4 +5,4 @@ metadata:
   namespace: flux-system
 spec:
   interval: 72h
-  url: https://bwolf.github.io/cert-manager-webhook-gandi
+  url: https://sintef.github.io/cert-manager-webhook-gandi
