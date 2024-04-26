@@ -19,4 +19,4 @@ spec:
   tls:
     - hosts:
       - echoserver.geplaenkel.io
-      secretName: echoserver-tls
+      secretName: echoserver-geplaenkel-io-tls
