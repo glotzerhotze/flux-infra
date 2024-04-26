@@ -3,12 +3,10 @@ kind: Ingress
 metadata:
   name: echoserver
   namespace: echoserver
-  annotations:
-    ingress.cilium.io/loadbalancer-mode: "shared"
 spec:
   ingressClassName: cilium
   rules:
-  - host: echoserver.vmware.klessen.cloud
+  - host: echoserver.geplaenkel.io
     http:
       paths:
       - path: /
@@ -20,5 +18,5 @@ spec:
               number: 80
   tls:
     - hosts:
-      - echoserver.vmware.klessen.cloud
+      - echoserver.geplaenkel.io
       secretName: echoserver-tls
