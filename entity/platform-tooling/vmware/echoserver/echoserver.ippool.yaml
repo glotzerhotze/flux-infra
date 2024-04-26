@@ -5,4 +5,8 @@ metadata:
   namespace: "echoserver"
 spec:
   cidrs:
-  - cidr: "192.168.123.0/24"
+  - cidr: "192.168.123.200/32"
+  serviceSelector:
+    matchLabels:
+      "io.kubernetes.service.namespace": "echoserver"
+      "io.kubernetes.service.name": "echoserver"
