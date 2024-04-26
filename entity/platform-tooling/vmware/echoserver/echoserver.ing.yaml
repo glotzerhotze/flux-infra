@@ -5,6 +5,7 @@ metadata:
   namespace: echoserver
   annotations:
     ingress.cilium.io/loadbalancer-mode: "dedicated"
+    io.cilium/lb-ipam-ips: "192.168.123.200"
 spec:
   ingressClassName: cilium
   rules:
